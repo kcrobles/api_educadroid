@@ -20,4 +20,9 @@ class Pregunta extends Model
     {
     	return $this->hasMany('App\Models\Opcion');
     }
+
+    public function tipo()
+    {
+    	return $this->belongsTo('App\Models\Tipo')
+    }
 }

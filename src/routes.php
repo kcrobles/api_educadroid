@@ -44,3 +44,9 @@ $app->post('/domicilios', '\App\Controllers\DomicilioController:create');
 $app->get('/domicilios', '\App\Controllers\DomicilioController:all');
 $app->put('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioController:update');
 $app->delete('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioController:delete');
+
+/* Encuestas */ 
+$app->post('/encuestas', '\App\Controllers\EncuestaController:create');
+$app->get('/encuestas', '\App\Controllers\EncuestaController:all');
+$app->put('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:update');
+$app->delete('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:delete');

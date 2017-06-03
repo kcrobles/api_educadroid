@@ -21,8 +21,8 @@ class User extends Model
     	return $this->belongsTo('App\Models\Rol');
     }
 
-    public function local()
+    public function domicilio()
     {
-    	return $this->belongsTo('App\Models\Local');
+    	return $this->hasOne('App\Models\Domicilio');
     }
 }

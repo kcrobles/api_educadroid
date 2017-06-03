@@ -38,3 +38,9 @@ $app->post('/roles', '\App\Controllers\RolController:create');
 $app->get('/roles', '\App\Controllers\RolController:all');
 $app->put('/roles/{id:[1-9]+[0-9]*}', '\App\Controllers\RolController:update');
 $app->delete('/roles/{id:[1-9]+[0-9]*}', '\App\Controllers\RolController:delete');
+
+/* Domicilios */ 
+$app->post('/domicilios', '\App\Controllers\DomicilioController:create');
+$app->get('/domicilios', '\App\Controllers\DomicilioController:all');
+$app->put('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioController:update');
+$app->delete('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioController:delete');

@@ -16,12 +16,6 @@ $container['db'] = function($container) use ($capsule) {
     return $capsule;
 };
 
-// $container['cookie'] = function($container) {
-//     $request = $container->get('request');
-//     return new \Slim\Http\Cookies($request->getCookieParams());
-// };
-
-
 //JWT
 $container["jwt"] = function ($container) {
     return new StdClass;

@@ -50,3 +50,15 @@ $app->post('/encuestas', '\App\Controllers\EncuestaController:create');
 $app->get('/encuestas', '\App\Controllers\EncuestaController:all');
 $app->put('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:update');
 $app->delete('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:delete');
+
+/* Tipos de Formato de Preguntas */ 
+$app->post('/tipos', '\App\Controllers\TipoController:create');
+$app->get('/tipos', '\App\Controllers\TipoController:all');
+$app->put('/tipos/{id:[1-9]+[0-9]*}', '\App\Controllers\TipoController:update');
+$app->delete('/tipos/{id:[1-9]+[0-9]*}', '\App\Controllers\TipoController:delete');
+
+/* Preguntas */ 
+$app->post('/preguntas', '\App\Controllers\PreguntaController:create');
+$app->get('/preguntas', '\App\Controllers\PreguntaController:all');
+$app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');
+$app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:delete');

@@ -15,7 +15,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::findOrFail($id)->with('role')->get();
+			$user = User::findOrFail($id)->with('rol', 'domicilio')->get();
 		} catch (ModelNotFoundException $e) {
 			$data = ["message" => "Usuario no encontrado."];
 			return $response->withJson($data, 404);
@@ -25,7 +25,7 @@ class UserController extends Controller {
 
 	public function all(Request $request, Response $response)
 	{
-		$users = User::with('role')->get();
+		$users = User::with('rol', 'domicilio')->get();
 
 		if(count($users) < 1)
 		{

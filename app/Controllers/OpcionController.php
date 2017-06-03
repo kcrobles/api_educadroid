@@ -30,14 +30,8 @@ class OpcionController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$opcion = null;
-		try {			
-			$opcion = Pregunta::findOrFail($request->getAttribute('pregunta_id'));
-		} catch (ModelNotFoundException $e) {
-			return $response->withJson(["message" => "Registro de pregunta no encontrado"], 404);
-		}
 		try {
-			$tipo = Opcion::findOrFail($request->getParam('id'));
-			$tipo->preguntas()->save($opcion);
+			$opcion = Opcion::findOrFail($request->getParam('id'));			
 		} catch(ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de opcion no encontrado"], 404);
 		}

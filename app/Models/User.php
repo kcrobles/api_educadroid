@@ -23,6 +23,6 @@ class User extends Model
 
     public function domicilio()
     {
-    	return $this->hasOne('App\Models\Domicilio');
+    	return $this->belongsTo('App\Models\Domicilio');
     }
 }

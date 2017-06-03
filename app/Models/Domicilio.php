@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *  Roles
+ *  Domicilios
  */
 class Domicilio extends Model
 {

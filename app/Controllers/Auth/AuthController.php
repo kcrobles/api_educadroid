@@ -58,6 +58,12 @@ class AuthController extends Controller {
 
     public function login(Request $request, Response $response)
     {
+        if($req->getAttribute('has_errors')) {
+            
+            $errors = $req->getAttribute('errors');
+
+            return $response->withJson($errors, 404);
+        }
         if(Customer::where('email', $request->getParam('email'))->count() < 1)
         {
             return $response->withJson([

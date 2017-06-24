@@ -23,6 +23,6 @@ class Pregunta extends Model
 
     public function tipo()
     {
-    	return $this->belongsTo('App\Models\Tipo')
+    	return $this->belongsTo('App\Models\Tipo');
     }
 }

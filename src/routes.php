@@ -39,25 +39,26 @@ $app->get('/roles', '\App\Controllers\RolController:all');
 $app->put('/roles/{id:[1-9]+[0-9]*}', '\App\Controllers\RolController:update');
 $app->delete('/roles/{id:[1-9]+[0-9]*}', '\App\Controllers\RolController:delete');
 
-/* Domicilios */ 
+/* Domicilios */
 $app->post('/domicilios', '\App\Controllers\DomicilioController:create');
 $app->get('/domicilios', '\App\Controllers\DomicilioController:all');
 $app->put('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioController:update');
 $app->delete('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioController:delete');
 
-/* Encuestas */ 
+/* Encuestas */
 $app->post('/encuestas', '\App\Controllers\EncuestaController:create');
 $app->get('/encuestas', '\App\Controllers\EncuestaController:all');
+$app->get('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:find');
 $app->put('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:update');
 $app->delete('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:delete');
 
-/* Tipos de Formato de Preguntas */ 
+/* Tipos de Formato de Preguntas */
 $app->post('/tipos', '\App\Controllers\TipoController:create');
 $app->get('/tipos', '\App\Controllers\TipoController:all');
 $app->put('/tipos/{id:[1-9]+[0-9]*}', '\App\Controllers\TipoController:update');
 $app->delete('/tipos/{id:[1-9]+[0-9]*}', '\App\Controllers\TipoController:delete');
 
-/* Preguntas */ 
+/* Preguntas */
 $app->post('/preguntas', '\App\Controllers\PreguntaController:create');
 $app->get('/preguntas', '\App\Controllers\PreguntaController:all');
 $app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');

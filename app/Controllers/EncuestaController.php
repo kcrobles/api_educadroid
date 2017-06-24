@@ -7,14 +7,43 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Controllers\Controller;
 use App\Models\Encuesta;
+use App\Models\Pregunta;
+use App\Models\Opcion;
+use App\Models\Respuesta;
 
 class EncuestaController extends Controller {
 
 	public function create(Request $request, Response $response)
 	{
 		$encuesta = new Encuesta;
-		$encuesta->tema = ucwords(strtolower($request->getParam('tema')));
+		$encuesta->tema = $request->getParam('tema');
 		$encuesta->save();
+		foreach ($request->getParam('preguntas') as $auxPregunta) {
+			$pregunta = new Pregunta;
+			$pregunta->texto = $auxPregunta['consigna'];
+			$pregunta->tipo_id = $auxPregunta['tipo'];
+			$pregunta->encuesta_id = $encuesta->id;
+			$pregunta->save();
+
+			/*en este array guardo los ids de las opciones temporalmente para asosciar las respuestas*/
+			$arrayOpciones = array();
+
+			foreach ($auxPregunta['opciones'] as $auxOpcion) {
+				$opcion = new Opcion;
+				$opcion->texto = $auxOpcion;
+				$opcion->pregunta_id = $pregunta->id;
+				$opcion->save();
+				$arrayOpciones[] = $opcion->id;
+			}
+
+			foreach ($auxPregunta['respuestas'] as $auxRespuesta) {
+				$respuesta = new Respuesta;
+				$respuesta->pregunta_id = $pregunta->id;
+				$respuesta->opcion_id = $arrayOpciones[intval($auxRespuesta) - 1];
+				$respuesta->save();
+			}
+		}
+
 		return $response->withJson($encuesta, 201);
 	}
 
@@ -24,10 +53,20 @@ class EncuestaController extends Controller {
 		return $response->withJson($encuestas, 201);
 	}
 
+	public function find(Request $request, Response $response)
+	{
+		try {
+			$encuesta = Encuesta::findOrFail($request->getAttribute('id'));
+		} catch (ModelNotFoundException $e) {
+			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);
+		}
+		return $response->withJson($encuesta, 201);
+	}
+
 	public function update(Request $request, Response $response)
 	{
 		$encuesta = null;
-		try {			
+		try {
 			$encuesta = Encuesta::findOrFail($request->getAttribute('id'));
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);

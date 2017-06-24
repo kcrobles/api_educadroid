@@ -12,6 +12,6 @@ class Encuesta extends Model
 	protected $table = 'encuestas';
     public function preguntas()
     {
-    	return $this->hasMany('App\Models\Pregunta');
+    	return $this->hasMany('App\Models\Pregunta', 'encuesta_id');
     }
 }

@@ -176,6 +176,8 @@ DROP TABLE IF EXISTS `respuestas`;
 CREATE TABLE IF NOT EXISTS `respuestas` (
   `pregunta_id` int(11) NOT NULL,
   `opcion_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   KEY `fk_respuesta_pregunta` (`pregunta_id`),
   KEY `fk_respuesta_opcion` (`opcion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -44,6 +44,9 @@ class AuthController extends Controller {
             "exp" => $now_secs + (60 * 60),
             "rol" => $auth->rol->nombre,
             "user" => array(
+                "id" => $auth->id,
+                "nombre" => $auth->nombre,
+                "apellido" => $auth->apellido,
                 "email" => $auth->email
             )
         ];

@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Controllers\Controller;
 use App\Models\User;
+use App\Models\Domicilio;
 
 class UserController extends Controller {
 
@@ -60,21 +61,22 @@ class UserController extends Controller {
 
 	public function create(Request $request, Response $response)
 	{
-		/* fistname, apellido, email, password, documento, sexo, role_id, domicilio_id */
-		if ($request->getAttribute('has_errors')) {
-			$errors = $request->getAttribute('errors');
-			return $response->withJson(["message" => $errors], 400);
-  		}
-
 		$user = new User;
 		$user->nombre = ucwords(strtolower($request->getParam('nombre')));
 		$user->apellido = ucwords(strtolower($request->getParam('apellido')));
 		$user->email = strtolower($request->getParam('email'));
 		$user->password = password_hash($request->getParam('password'), PASSWORD_DEFAULT);
 		$user->documento = $request->getParam('documento');
+		$user->fnacimiento = $request->getParam('fnacimiento');
 		$user->sexo = strtolower($request->getParam('sexo'));
-		$user->rol_id = $request->getParam('rol_id');
-		$user->domicilio_id = $request->getParam('domicilio_id');
+		$user->rol_id = 3;
+		$decoded = $request->getParam('domicilio');
+		$dm = new Domicilio();
+		$dm->direccion = ucwords(strtolower($decoded['direccion']));
+		$dm->latitud = ucwords(strtolower($decoded['latitud']));
+		$dm->longitud = ucwords(strtolower($decoded['longitud']));
+		$dm->save();
+		$user->domicilio_id = $dm->id;
 		$user->save();
 		return $response->withJson($user, 201);
 	}

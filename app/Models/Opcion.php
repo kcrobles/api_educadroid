@@ -15,4 +15,5 @@ class Opcion extends Model
     {
     	return $this->belongsTo('App\Models\Pregunta');
     }
+
 }

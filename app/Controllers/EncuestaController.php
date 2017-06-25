@@ -49,14 +49,14 @@ class EncuestaController extends Controller {
 
 	public function all(Request $request, Response $response)
 	{
-		$encuestas = Encuesta::all();
+		$encuestas = Encuesta::with('pregunta')->get();
 		return $response->withJson($encuestas, 201);
 	}
 
 	public function find(Request $request, Response $response)
 	{
 		try {
-			$encuesta = Encuesta::findOrFail($request->getAttribute('id'));
+			$encuesta = Encuesta::where('id',$request->getAttribute('id'))->with('preguntas.opciones', 'preguntas.respuestas')->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);
 		}

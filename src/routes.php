@@ -10,6 +10,8 @@ $app->get('/', function (Request $request, Response $response) {
     return $response;
 });
 
+$app->get('/images/{image}', '\App\Controllers\ImageController:getImageUploaded');
+
 /* Users */
 
 $app->get('/users', '\App\Controllers\UserController:all');

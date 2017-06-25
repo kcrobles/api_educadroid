@@ -15,8 +15,4 @@ class Respuesta extends Model
     {
     	return $this->belongsTo('App\Models\Pregunta');
     }
-
-  public function opciones(){
-    return $this->belongsTo('App\Models\Opcion');
-  }
 }

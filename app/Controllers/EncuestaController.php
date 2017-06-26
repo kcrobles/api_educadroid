@@ -49,7 +49,7 @@ class EncuestaController extends Controller {
 
 	public function all(Request $request, Response $response)
 	{
-		$encuestas = Encuesta::with('pregunta')->get();
+		$encuestas = Encuesta::with('preguntas')->get();
 		return $response->withJson($encuestas, 201);
 	}
 

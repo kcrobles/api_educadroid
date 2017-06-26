@@ -10,17 +10,17 @@ $app->get('/', function (Request $request, Response $response) {
     return $response;
 });
 
+$app->get('/images/{image}', '\App\Controllers\ImageController:getImageUploaded');
+
 /* Users */
 
 $app->get('/users', '\App\Controllers\UserController:all');
 
 $app->get('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:show');
 
-$app->post('/users', '\App\Controllers\UserController:create')
-	->add(new Validacion($USER_CREATE, $translator));
+$app->post('/users', '\App\Controllers\UserController:create');
 
-$app->put('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:update')
-	->add(new Validacion($USER_EDIT, $translator));
+$app->put('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:update');
 
 $app->delete('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:delete');
 
@@ -29,8 +29,8 @@ $app->delete('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:delete
 $app->post('/auth/attempt', '\App\Controllers\Auth\AuthController:attempt')
 	->add(new Validacion($LOGIN_VALIDATORS, $translator));
 
-$app->post('/login', '\App\Controllers\Auth\AuthController:login')
-	->add(new Validacion($LOGIN_VALIDATORS, $translator));
+$app->post('/login', '\App\Controllers\Auth\AuthController:login');
+
 $app->post('/verify', '\App\Controllers\Auth\AuthController:verify');
 
 /* Roles */

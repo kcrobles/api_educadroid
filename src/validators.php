@@ -22,8 +22,8 @@ $oidValidator = v::Optional(v::notEmpty()->IntVal()->positive());
 $ofnacimientoValidator = v::Optional(v::notEmpty()->Date('Y-m-d')->age(6, 75));
 
 $LOGIN_VALIDATORS = array(
-    'email' => v::notEmpty()->NoWhitespace()->email(),
-    'password' => $passwordValidator
+    'email' => v::email(),
+    'password' => v::length(6, 12)
 );
 
 $USER_CREATE = array(
@@ -52,6 +52,8 @@ $USER_EDIT = array(
 
 $translator = function($message){
 	$messages = [
+        "All of the required rules must pass for {{name}}" => "pija",
+        'These rules must pass for {{name}}' => 'Estas validaciones deben ser aprobadas por {{name}}',
 		//length(x,y)
 		'{{name}} must have a length between {{minValue}} and {{maxValue}}' => 'Debe tener entre {{minValue}} y {{maxValue}} caracteres',
 		'{{name}} must have a length greater than {{minValue}}' => 'No puede ser menor a {{minValue}} caracteres',

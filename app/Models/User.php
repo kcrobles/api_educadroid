@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     protected $hidden = ['password'];
-    
+
     public function invoices()
     {
     	return $this->hasMany('App\Models\Invoice');
     }
-    
+
     public function rol()
     {
     	return $this->belongsTo('App\Models\Rol');
@@ -25,4 +25,12 @@ class User extends Model
     {
     	return $this->belongsTo('App\Models\Domicilio');
     }
+
+    public function resultados(){
+      return $this->hasMany('App\Models\Resultado');
+    }
+
+    public function resultados(){
+			return $this->hasMany('App\Models\Respuesta');
+		}
 }

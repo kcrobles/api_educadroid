@@ -217,6 +217,14 @@ CREATE TABLE IF NOT EXISTS `tipos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tipos`
+--
+
+INSERT INTO `tipos`(`id`, `nombre`) VALUES (1,'Checks');
+INSERT INTO `tipos`(`id`, `nombre`) VALUES (2,'Radio');
+INSERT INTO `tipos`(`id`, `nombre`) VALUES (3,'Text');
+
 -- --------------------------------------------------------
 
 --

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2017 a las 01:59:36
+-- Tiempo de generación: 27-06-2017 a las 05:40:22
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -23,12 +23,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `contestadas`
+-- Estructura de tabla para la tabla `cursos`
 --
 
-CREATE TABLE `contestadas` (
-  `encuesta_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+CREATE TABLE `cursos` (
+  `id` int(10) NOT NULL,
+  `materia_id` int(11) NOT NULL,
+  `division_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cursos_encuestas`
+--
+
+CREATE TABLE `cursos_encuestas` (
+  `curso_id` int(11) NOT NULL,
+  `encuesta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -102,7 +114,8 @@ INSERT INTO `encuestas` (`id`, `tema`, `user_id`, `created_at`, `updated_at`) VA
 (16, 'asdfasf', NULL, '2017-06-24 06:08:45', '2017-06-24 06:08:45'),
 (17, 'asdfasf', NULL, '2017-06-24 06:22:12', '2017-06-24 06:22:12'),
 (18, 'Matematicas', NULL, '2017-06-26 05:46:47', '2017-06-26 05:46:47'),
-(19, 'Historia', NULL, '2017-06-26 05:49:37', '2017-06-26 05:49:37');
+(19, 'Historia', NULL, '2017-06-26 05:49:37', '2017-06-26 05:49:37'),
+(20, 'muchas preguntas', NULL, '2017-06-27 02:09:28', '2017-06-27 02:09:28');
 
 -- --------------------------------------------------------
 
@@ -111,8 +124,8 @@ INSERT INTO `encuestas` (`id`, `tema`, `user_id`, `created_at`, `updated_at`) VA
 --
 
 CREATE TABLE `inscripciones` (
-  `legajo` int(10) UNSIGNED NOT NULL,
-  `materia_division_id` int(10) UNSIGNED NOT NULL,
+  `legajo` int(11) NOT NULL,
+  `curso_id` int(10) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -137,18 +150,6 @@ CREATE TABLE `legajos` (
 CREATE TABLE `materias` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `materias_divisiones`
---
-
-CREATE TABLE `materias_divisiones` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `materia_id` int(10) UNSIGNED NOT NULL,
-  `division_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -179,7 +180,14 @@ INSERT INTO `opciones` (`id`, `texto`, `pregunta_id`, `created_at`, `updated_at`
 (7, '1', 6, '2017-06-26 05:46:47', '2017-06-26 05:46:47'),
 (8, '2', 6, '2017-06-26 05:46:47', '2017-06-26 05:46:47'),
 (9, '3', 6, '2017-06-26 05:46:47', '2017-06-26 05:46:47'),
-(10, 'blanco', 7, '2017-06-26 05:49:37', '2017-06-26 05:49:37');
+(10, 'blanco', 7, '2017-06-26 05:49:37', '2017-06-26 05:49:37'),
+(11, '8', 8, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(12, '9', 8, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(13, '33', 8, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(14, 'a', 9, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(15, 'b', 9, '2017-06-27 02:09:29', '2017-06-27 02:09:29'),
+(16, 'e', 9, '2017-06-27 02:09:29', '2017-06-27 02:09:29'),
+(17, '30', 10, '2017-06-27 02:09:29', '2017-06-27 02:09:29');
 
 -- --------------------------------------------------------
 
@@ -206,7 +214,10 @@ INSERT INTO `preguntas` (`id`, `tipo_id`, `texto`, `encuesta_id`, `created_at`, 
 (4, 1, 'asdfsaf', 16, '2017-06-24 06:08:45', '2017-06-24 06:08:45'),
 (5, 1, 'asdfasdf', 17, '2017-06-24 06:22:12', '2017-06-24 06:22:12'),
 (6, 2, 'Cuanto es 1 + 1', 18, '2017-06-26 05:46:47', '2017-06-26 05:46:47'),
-(7, 3, 'De que color es el caballo blanco de San Martin?', 19, '2017-06-26 05:49:37', '2017-06-26 05:49:37');
+(7, 3, 'De que color es el caballo blanco de San Martin?', 19, '2017-06-26 05:49:37', '2017-06-26 05:49:37'),
+(8, 1, 'multiplos de 3', 20, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(9, 2, 'segunda vocal del abecedario', 20, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(10, 3, '5+5*5', 20, '2017-06-27 02:09:29', '2017-06-27 02:09:29');
 
 -- --------------------------------------------------------
 
@@ -227,7 +238,22 @@ CREATE TABLE `respuestas` (
 
 INSERT INTO `respuestas` (`pregunta_id`, `opcion_id`, `created_at`, `updated_at`) VALUES
 (5, 4, '2017-06-24 06:22:12', '2017-06-24 06:22:12'),
-(6, 8, '2017-06-26 05:46:47', '2017-06-26 05:46:47');
+(6, 8, '2017-06-26 05:46:47', '2017-06-26 05:46:47'),
+(8, 12, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(8, 13, '2017-06-27 02:09:28', '2017-06-27 02:09:28'),
+(9, 16, '2017-06-27 02:09:29', '2017-06-27 02:09:29');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resultados`
+--
+
+CREATE TABLE `resultados` (
+  `pregunta_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `resultado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -303,11 +329,19 @@ INSERT INTO `users` (`id`, `nombre`, `apellido`, `documento`, `email`, `password
 --
 
 --
--- Indices de la tabla `contestadas`
+-- Indices de la tabla `cursos`
 --
-ALTER TABLE `contestadas`
-  ADD KEY `fk_contestada_encuesta` (`encuesta_id`),
-  ADD KEY `fk_contestada_user` (`user_id`);
+ALTER TABLE `cursos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `materia_id` (`materia_id`),
+  ADD KEY `division_id` (`division_id`);
+
+--
+-- Indices de la tabla `cursos_encuestas`
+--
+ALTER TABLE `cursos_encuestas`
+  ADD KEY `materia_division_id` (`curso_id`),
+  ADD KEY `encuesta_id` (`encuesta_id`);
 
 --
 -- Indices de la tabla `divisiones`
@@ -329,6 +363,13 @@ ALTER TABLE `encuestas`
   ADD KEY `fk_encuenta_user` (`user_id`);
 
 --
+-- Indices de la tabla `inscripciones`
+--
+ALTER TABLE `inscripciones`
+  ADD KEY `curso_id` (`curso_id`),
+  ADD KEY `legajo` (`legajo`);
+
+--
 -- Indices de la tabla `legajos`
 --
 ALTER TABLE `legajos`
@@ -339,12 +380,6 @@ ALTER TABLE `legajos`
 -- Indices de la tabla `materias`
 --
 ALTER TABLE `materias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `materias_divisiones`
---
-ALTER TABLE `materias_divisiones`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -368,6 +403,13 @@ ALTER TABLE `preguntas`
 ALTER TABLE `respuestas`
   ADD KEY `fk_respuesta_pregunta` (`pregunta_id`),
   ADD KEY `fk_respuesta_opcion` (`opcion_id`);
+
+--
+-- Indices de la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  ADD KEY `fk_contestada_encuesta` (`pregunta_id`),
+  ADD KEY `fk_contestada_user` (`user_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -394,6 +436,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `cursos`
+--
+ALTER TABLE `cursos`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `divisiones`
 --
 ALTER TABLE `divisiones`
@@ -407,7 +454,7 @@ ALTER TABLE `domicilios`
 -- AUTO_INCREMENT de la tabla `encuestas`
 --
 ALTER TABLE `encuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT de la tabla `legajos`
 --
@@ -419,20 +466,15 @@ ALTER TABLE `legajos`
 ALTER TABLE `materias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `materias_divisiones`
---
-ALTER TABLE `materias_divisiones`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT de la tabla `opciones`
 --
 ALTER TABLE `opciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -453,17 +495,31 @@ ALTER TABLE `users`
 --
 
 --
--- Filtros para la tabla `contestadas`
+-- Filtros para la tabla `cursos`
 --
-ALTER TABLE `contestadas`
-  ADD CONSTRAINT `fk_contestada_encuesta` FOREIGN KEY (`encuesta_id`) REFERENCES `encuestas` (`id`),
-  ADD CONSTRAINT `fk_contestada_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `cursos`
+  ADD CONSTRAINT `fk_curso_divisiones` FOREIGN KEY (`division_id`) REFERENCES `divisiones` (`id`),
+  ADD CONSTRAINT `fk_curso_materias` FOREIGN KEY (`materia_id`) REFERENCES `materias` (`id`);
+
+--
+-- Filtros para la tabla `cursos_encuestas`
+--
+ALTER TABLE `cursos_encuestas`
+  ADD CONSTRAINT `fk_asignacion_curso` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`),
+  ADD CONSTRAINT `fk_asignacion_encuesta` FOREIGN KEY (`encuesta_id`) REFERENCES `encuestas` (`id`);
 
 --
 -- Filtros para la tabla `encuestas`
 --
 ALTER TABLE `encuestas`
   ADD CONSTRAINT `fk_encuenta_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `inscripciones`
+--
+ALTER TABLE `inscripciones`
+  ADD CONSTRAINT `fk_inscripcion_curso` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`),
+  ADD CONSTRAINT `fk_inscripcion_legajo` FOREIGN KEY (`legajo`) REFERENCES `legajos` (`legajo`);
 
 --
 -- Filtros para la tabla `legajos`
@@ -490,6 +546,13 @@ ALTER TABLE `preguntas`
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `fk_respuesta_opcion` FOREIGN KEY (`opcion_id`) REFERENCES `opciones` (`id`),
   ADD CONSTRAINT `fk_respuesta_pregunta` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`id`);
+
+--
+-- Filtros para la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  ADD CONSTRAINT `fk_contestada_encuesta` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`id`),
+  ADD CONSTRAINT `fk_contestada_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `users`

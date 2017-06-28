@@ -47,7 +47,9 @@ class AuthController extends Controller {
                 "id" => $auth->id,
                 "nombre" => $auth->nombre,
                 "apellido" => $auth->apellido,
-                "email" => $auth->email
+                "email" => $auth->email,
+                "sexo" => $auth->sexo,
+                "image" => $auth->image
             )
         ];
 

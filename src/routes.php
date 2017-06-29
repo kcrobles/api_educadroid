@@ -63,3 +63,8 @@ $app->post('/preguntas', '\App\Controllers\PreguntaController:create');
 $app->get('/preguntas', '\App\Controllers\PreguntaController:all');
 $app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');
 $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:delete');
+
+/* Resultados */
+$app->post('/resultados', '\App\Controllers\ResultadosController:create');
+$app->get('/resultados', '\App\Controllers\ResultadosController:all');
+$app->get('/resultados/{encuesta_id:[1-9]+[0-9]*}/{user_id:[1-9]+[0-9]*}', '\App\Controllers\ResultadosController:findByIdEncuestaAndUser');

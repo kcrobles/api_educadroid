@@ -17,34 +17,36 @@ class ResultadosController extends Controller {
 	{
     $preguntas = $request->getParam('preguntas');
 
+		$i = 0;
+
     foreach ($preguntas as $item) {
       $resultado = new Resultado;
       $resultado->pregunta_id = $item['id'];
       $resultado->user_id = $request->getParam('user_id');
-      $resultado->resultado = $item['resultado'];
+      $resultado->resultado = $request->getParam('resultados')[$i];
       $resultado->save();
+			$i = $i + 1;
     }
+
+		return $response->withJson($resultado, 201);
 	}
 
 	public function all(Request $request, Response $response)
 	{
+		$resultados = Resultado::with('pregunta.encuesta')->get();
 
+		return $response->withJson($resultados, 201);
 	}
 
-	public function find(Request $request, Response $response)
+	public function findByEncuestaAndUser(Request $request, Response $response)
 	{
-    return $resultados = Resultado::with(['preguntas' => function ($query) {
-      $query->where('encuesta_id', '==', '17');
+    $resultados = Resultado::with(['preguntas' => function ($query) {
+      $query->where('encuesta_id', $request->getParam('encuesta_id'));
     }])->get();
+
+		$resultados = $resultados->where('user_id', $request->getParam('user_id'))->get();
+
+		return $response->withJson($resultados, 201);
 	}
 
-	public function update(Request $request, Response $response)
-	{
-
-	}
-
-	public function delete(Request $request, Response $response)
-	{
-
-	}
 }

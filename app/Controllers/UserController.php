@@ -16,7 +16,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::findOrFail($id)->with('rol', 'domicilio')->get();
+			$user = User::where('id', $id)->with('rol', 'domicilio')->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			$data = ["message" => "Usuario no encontrado."];
 			return $response->withJson($data, 404);

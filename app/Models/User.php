@@ -30,7 +30,7 @@ class User extends Model
       return $this->hasMany('App\Models\Resultado');
     }
 
-    public function resultados(){
-			return $this->hasMany('App\Models\Respuesta');
-		}
+    public function respuestas(){
+		return $this->hasMany('App\Models\Respuesta');
+	}
 }

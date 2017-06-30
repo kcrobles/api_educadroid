@@ -15,14 +15,11 @@ $app->get('/images/{image}', '\App\Controllers\ImageController:getImageUploaded'
 /* Users */
 
 $app->get('/users', '\App\Controllers\UserController:all');
-
 $app->get('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:show');
-
 $app->post('/users', '\App\Controllers\UserController:create');
-
 $app->put('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:update');
-
 $app->delete('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:delete');
+$app->get('/users/rol/{id:[1-9]+}', '\App\Controllers\UserController:getUsersByRol');
 
 /* Authentication */
 
@@ -63,3 +60,5 @@ $app->post('/preguntas', '\App\Controllers\PreguntaController:create');
 $app->get('/preguntas', '\App\Controllers\PreguntaController:all');
 $app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');
 $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:delete');
+
+/**/

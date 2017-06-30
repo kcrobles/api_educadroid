@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Resultado extends Model
 {
 	protected $table = 'resultados';
+	public $timestamps = false;
 
 	public function pregunta()
 	{
@@ -21,4 +22,8 @@ class Resultado extends Model
     	return $this->belongsTo('App\Models\User');
     }
 
+		public function encuesta()
+		{
+			return $this->belongsTo('App\Models\Encuesta');
+		}
 }

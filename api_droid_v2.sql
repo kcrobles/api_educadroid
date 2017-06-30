@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2017 a las 05:40:22
+-- Tiempo de generación: 30-06-2017 a las 06:59:10
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -250,6 +250,7 @@ INSERT INTO `respuestas` (`pregunta_id`, `opcion_id`, `created_at`, `updated_at`
 --
 
 CREATE TABLE `resultados` (
+  `encuesta_id` int(11) NOT NULL,
   `pregunta_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `resultado` tinyint(1) NOT NULL
@@ -409,7 +410,8 @@ ALTER TABLE `respuestas`
 --
 ALTER TABLE `resultados`
   ADD KEY `fk_contestada_encuesta` (`pregunta_id`),
-  ADD KEY `fk_contestada_user` (`user_id`);
+  ADD KEY `fk_contestada_user` (`user_id`),
+  ADD KEY `encuesta_id` (`encuesta_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -551,8 +553,9 @@ ALTER TABLE `respuestas`
 -- Filtros para la tabla `resultados`
 --
 ALTER TABLE `resultados`
-  ADD CONSTRAINT `fk_contestada_encuesta` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`id`),
-  ADD CONSTRAINT `fk_contestada_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_resultado_encuesta` FOREIGN KEY (`encuesta_id`) REFERENCES `encuestas` (`id`),
+  ADD CONSTRAINT `fk_resultado_pregunta` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`id`),
+  ADD CONSTRAINT `fk_resultado_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `users`

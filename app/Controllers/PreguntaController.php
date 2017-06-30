@@ -32,19 +32,20 @@ class PreguntaController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$pregunta = null;
+		$id = $request->getAttribute('id');
 		try {			
-			$pregunta = Pregunta::findOrFail($request->getAttribute('id'));
+			$pregunta = Pregunta::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de pregunta no encontrado"], 404);
 		}
 		try {
-			$tipo = Tipo::findOrFail($request->getParam('tipo_id'));
+			$tipo = Tipo::where('id', $request->getParam('tipo_id'))->firstOrFail();
 			$tipo->preguntas()->save($pregunta);
 		} catch(ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Formato de pregunta no encontrado"], 404);
 		}
 		try {
-			$encuesta = Encuesta::findOrFail($request->getParam('encuesta_id'));
+			$encuesta = Encuesta::where('id', $request->getParam('encuesta_id'))->firstOrFail();
 			$encuesta->preguntas()->save($pregunta);
 		} catch(ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);
@@ -58,7 +59,7 @@ class PreguntaController extends Controller {
 	{
 		$pregunta = null;
 		try {
-			$pregunta = Pregunta::findOrFail($request->getAttribute('id'));
+			$pregunta = Pregunta::where('id', $request->getAttribute('id'))->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de pregunta no encontrado"], 404);
 		}

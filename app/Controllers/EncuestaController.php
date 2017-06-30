@@ -66,8 +66,9 @@ class EncuestaController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$encuesta = null;
+		$id = $request->getAttribute('id');
 		try {
-			$encuesta = Encuesta::findOrFail($request->getAttribute('id'));
+			$encuesta = Encuesta::where('id', $id)->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);
 		}
@@ -79,8 +80,9 @@ class EncuestaController extends Controller {
 	public function delete(Request $request, Response $response)
 	{
 		$encuesta = null;
+		$id = $request->getAttribute('id');
 		try {
-			$encuesta = Encuesta::findOrFail($request->getAttribute('id'));
+			$encuesta = Encuesta::where('id', $id)->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);
 		}

@@ -44,7 +44,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::findOrFail($id);
+			$user = User::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			$data = [
 			"message" => "Usuario no encontrado"
@@ -70,11 +70,11 @@ class UserController extends Controller {
 		$user->fnacimiento = $request->getParam('fnacimiento');
 		$user->sexo = strtolower($request->getParam('sexo'));
 		$user->rol_id = 3;
-		$decoded = $request->getParam('domicilio');
+		$dom= $request->getParam('domicilio');
 		$dm = new Domicilio();
-		$dm->direccion = ucwords(strtolower($decoded['direccion']));
-		$dm->latitud = ucwords(strtolower($decoded['latitud']));
-		$dm->longitud = ucwords(strtolower($decoded['longitud']));
+		$dm->direccion = ucwords(strtolower($dom['direccion']));
+		$dm->latitud = ucwords(strtolower($dom['latitud']));
+		$dm->longitud = ucwords(strtolower($dom['longitud']));
 		$dm->save();
 		$user->domicilio_id = $dm->id;
 		$user->save();
@@ -84,14 +84,14 @@ class UserController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		/* fistname, apellido, email, password, documento, sexo, role_id, domicilio_id */
-		if ($request->getAttribute('has_errors')) {
-			$errors = $request->getAttribute('errors');
-			return $response->withJson(["message" => $errors], 400);
-  		}
+		// if ($request->getAttribute('has_errors')) {
+		// 	$errors = $request->getAttribute('errors');
+		// 	return $response->withJson(["message" => $errors], 400);
+  // 		}
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::findOrFail($id);
+			$user = User::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			$data = [
 			"message" => "Usuario no encontrado"
@@ -128,7 +128,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::findOrFail($id);
+			$user = User::where('id', $id)->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			$data = [
 			"message" => "Usuario no encontrado"
@@ -149,5 +149,17 @@ class UserController extends Controller {
 		    return $response->withJson($user, 200);
 		}
 		return $response->withJson(["message" => "Error al subir image"], 400);
+	}
+
+	public function getUsersByRol(Request $request, Response $response)
+	{
+		$id = $request->getAttribute('id');		
+		$users = null;
+		try {
+			$users = User::where('rol_id', $id)->get();			
+		} catch (ModelNotFoundException $e) {
+			return $response->withJson(['message' => 'No se encontraron usuarios'], 404);
+		}
+		return $response->withJson($users, 200);
 	}
 }

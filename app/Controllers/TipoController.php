@@ -27,8 +27,9 @@ class TipoController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$tipo = null;
+		$id = $request->getAttribute('id');
 		try {			
-			$tipo = Tipo::findOrFail($request->getAttribute('id'));
+			$tipo = Tipo::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de tipo de formato no encontrado"], 404);
 		}
@@ -40,8 +41,9 @@ class TipoController extends Controller {
 	public function delete(Request $request, Response $response)
 	{
 		$tipo = null;
+		$id = $request->getAttribute('id');
 		try {
-			$tipo = Tipo::findOrFail($request->getAttribute('id'));
+			$tipo = Tipo::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de tipo de formato no encontrado"], 404);
 		}

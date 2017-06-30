@@ -21,6 +21,7 @@ class ResultadosController extends Controller {
 
     foreach ($preguntas as $item) {
       $resultado = new Resultado;
+			$resultado->encuesta_id = $item['encuesta_id'];
       $resultado->pregunta_id = $item['id'];
       $resultado->user_id = $request->getParam('user_id');
       $resultado->resultado = $request->getParam('resultados')[$i];
@@ -33,18 +34,19 @@ class ResultadosController extends Controller {
 
 	public function all(Request $request, Response $response)
 	{
-		$resultados = Resultado::with('pregunta.encuesta')->get();
+		$resultados = Resultado::with('pregunta')->get();
 
 		return $response->withJson($resultados, 201);
 	}
 
 	public function findByEncuestaAndUser(Request $request, Response $response)
 	{
-    $resultados = Resultado::with(['preguntas' => function ($query) {
-      $query->where('encuesta_id', $request->getParam('encuesta_id'));
-    }])->get();
 
-		$resultados = $resultados->where('user_id', $request->getParam('user_id'))->get();
+		$resultados = Resultado::where([
+			['user_id', $request->getParam('user_id')],
+			['encuesta_id', $request->getParam('encuesta_id')]
+			])->get();
+
 
 		return $response->withJson($resultados, 201);
 	}

@@ -52,6 +52,11 @@ $app->get('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:f
 $app->put('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:update');
 $app->delete('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:delete');
 
+/*Deploy Encuestas*/
+$app->post('/encuestas/deploy', '\App\Controllers\CursoEncuestaController:create');
+$app->delete('/encuestas/deploy/{id:[1-9]+[0-9]*}', '\App\Controllers\CursoEncuestaController:delete');
+$app->get('/encuestas/deploy', '\App\Controllers\CursoEncuestaController:all');
+
 /* Tipos de Formato de Preguntas */
 $app->post('/tipos', '\App\Controllers\TipoController:create');
 $app->get('/tipos', '\App\Controllers\TipoController:all');
@@ -67,4 +72,4 @@ $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaControlle
 /* Resultados */
 $app->post('/resultados', '\App\Controllers\ResultadosController:create');
 $app->get('/resultados', '\App\Controllers\ResultadosController:all');
-$app->get('/resultados/{encuesta_id:[1-9]+[0-9]*}/{user_id:[1-9]+[0-9]*}', '\App\Controllers\ResultadosController:findByIdEncuestaAndUser');
+$app->get('/resultados/find', '\App\Controllers\ResultadosController:findByEncuestaAndUser');

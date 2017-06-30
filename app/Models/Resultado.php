@@ -22,4 +22,8 @@ class Resultado extends Model
     	return $this->belongsTo('App\Models\User');
     }
 
+		public function encuesta()
+		{
+			return $this->belongsTo('App\Models\Encuesta');
+		}
 }

@@ -10,6 +10,7 @@ use App\Models\Encuesta;
 use App\Models\Pregunta;
 use App\Models\Opcion;
 use App\Models\Respuesta;
+use App\Models\CursoEncuesta;
 
 class EncuestaController extends Controller {
 

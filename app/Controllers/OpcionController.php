@@ -30,8 +30,9 @@ class OpcionController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$opcion = null;
+		$id = $request->getAttribute('id');
 		try {
-			$opcion = Opcion::findOrFail($request->getParam('id'));			
+			$opcion = Opcion::where('id', $id)->firstOrFail($id);			
 		} catch(ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de opcion no encontrado"], 404);
 		}
@@ -43,8 +44,9 @@ class OpcionController extends Controller {
 	public function delete(Request $request, Response $response)
 	{
 		$opcion = null;
+		$id = $request->getAttribute('id');
 		try {
-			$opcion = Opcion::findOrFail($request->getAttribute('id'));
+			$opcion = Opcion::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de opcion no encontrado"], 404);
 		}

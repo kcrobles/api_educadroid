@@ -42,14 +42,15 @@ class AuthController extends Controller {
             "sub" => $this->service_account_email,
             "iat" => $now_secs,
             "exp" => $now_secs + (60 * 60),
-            "rol" => $auth->rol->nombre,
+            "rol" => $auth->rol->id,
             "user" => array(
                 "id" => $auth->id,
                 "nombre" => $auth->nombre,
                 "apellido" => $auth->apellido,
                 "email" => $auth->email,
                 "sexo" => $auth->sexo,
-                "image" => $auth->image
+                "image" => $auth->image,
+                "tipo" => $auth->rol->nombre
             )
         ];
 

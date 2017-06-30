@@ -15,14 +15,11 @@ $app->get('/images/{image}', '\App\Controllers\ImageController:getImageUploaded'
 /* Users */
 
 $app->get('/users', '\App\Controllers\UserController:all');
-
 $app->get('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:show');
-
 $app->post('/users', '\App\Controllers\UserController:create');
-
 $app->put('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:update');
-
 $app->delete('/users/{id:[1-9]+[0-9]*}', '\App\Controllers\UserController:delete');
+$app->get('/users/rol/{id:[1-9]+}', '\App\Controllers\UserController:getUsersByRol');
 
 /* Authentication */
 
@@ -69,7 +66,11 @@ $app->get('/preguntas', '\App\Controllers\PreguntaController:all');
 $app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');
 $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:delete');
 
+<<<<<<< HEAD
+/**/
+=======
 /* Resultados */
 $app->post('/resultados', '\App\Controllers\ResultadosController:create');
 $app->get('/resultados', '\App\Controllers\ResultadosController:all');
 $app->get('/resultados/find', '\App\Controllers\ResultadosController:findByEncuestaAndUser');
+>>>>>>> 1808d037f296c993ef9e35d9b49eae9702967a61

@@ -27,8 +27,9 @@ class RolController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$role = null;
+		$id = $request->getAttribute('id');
 		try {			
-			$role = Rol::findOrFail($request->getAttribute('id'));
+			$role = Rol::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Rol no encontrado"], 404);
 		}
@@ -40,8 +41,9 @@ class RolController extends Controller {
 	public function delete(Request $request, Response $response)
 	{
 		$role = null;
-		try {
-			$role = Rol::findOrFail($request->getAttribute('id'));
+		$id = $request->getAttribute('id');
+		try {			
+			$role = Rol::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Rol no encontrado"], 404);
 		}

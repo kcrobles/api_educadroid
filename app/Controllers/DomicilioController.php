@@ -29,8 +29,9 @@ class RolController extends Controller {
 	public function update(Request $request, Response $response)
 	{
 		$domicilio = null;
+		$id = $request->getAttribute('id');
 		try {			
-			$domicilio = Domicilio::findOrFail($request->getAttribute('id'));
+			$domicilio = Domicilio::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de domicilio no encontrado"], 404);
 		}
@@ -44,8 +45,9 @@ class RolController extends Controller {
 	public function delete(Request $request, Response $response)
 	{
 		$domicilio = null;
+		$id = $request->getAttribute('id');
 		try {
-			$domicilio = Domicilio::findOrFail($request->getAttribute('id'));
+			$domicilio = Domicilio::fwhere('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de domicilio no encontrado"], 404);
 		}

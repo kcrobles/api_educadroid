@@ -24,7 +24,7 @@ class Encuesta extends Model
       return $this->belongsToMany('App\Models\Cursos' ,'cursos_encuestas', 'encuesta_id', 'curso_id');
     }
 
-		public funcion resultados(){
+		public function resultados(){
 			return $this->hasMany('App\Models\Resultado', 'encuesta_id');
 		}
 }

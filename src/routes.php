@@ -45,6 +45,7 @@ $app->delete('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioControl
 /* Encuestas */
 $app->post('/encuestas', '\App\Controllers\EncuestaController:create');
 $app->get('/encuestas', '\App\Controllers\EncuestaController:all');
+$app->get('/encuestas/user/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:getByUser');
 $app->get('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:find');
 $app->put('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:update');
 $app->delete('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:delete');
@@ -66,11 +67,7 @@ $app->get('/preguntas', '\App\Controllers\PreguntaController:all');
 $app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');
 $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:delete');
 
-<<<<<<< HEAD
-/**/
-=======
 /* Resultados */
 $app->post('/resultados', '\App\Controllers\ResultadosController:create');
 $app->get('/resultados', '\App\Controllers\ResultadosController:all');
 $app->get('/resultados/find', '\App\Controllers\ResultadosController:findByEncuestaAndUser');
->>>>>>> 1808d037f296c993ef9e35d9b49eae9702967a61

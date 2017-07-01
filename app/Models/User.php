@@ -25,6 +25,10 @@ class User extends Model
       return $this->hasMany('App\Models\Resultado');
     }
 
+    public function legajo()
+    {
+        return $this->hasOne('App\Models\Legajo');
+    }
     
 
     public function respuestas(){

@@ -18,6 +18,6 @@ class Inscripcion extends Model
 
   public function cursos()
   {
-   	return $this->hasOne('App\Models\Curso' ,'inscripciones');
+   	return $this->hasOne('App\Models\Curso');
   }
 }

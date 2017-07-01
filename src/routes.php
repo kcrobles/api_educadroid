@@ -71,3 +71,9 @@ $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaControlle
 $app->post('/resultados', '\App\Controllers\ResultadosController:create');
 $app->get('/resultados', '\App\Controllers\ResultadosController:all');
 $app->get('/resultados/find', '\App\Controllers\ResultadosController:findByEncuestaAndUser');
+
+/* Materias */
+$app->post('/materias', '\App\Controllers\MateriaController:create');
+$app->get('/materias', '\App\Controllers\MateriaController:all');
+$app->get('/materias/{id:[1-9]+[0-9]*}', '\App\Controllers\MateriaController:find');
+$app->delete('/materias/{id:[1-9]+[0-9]*}', '\App\Controllers\MateriaController:delete');

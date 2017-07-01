@@ -13,13 +13,14 @@ class InscripcionController extends Controller {
 	public function create(Request $request, Response $response)
 	{
 		$legajo = $request->getParam('legajo');
-		$curso_id = $request->getParam('curso_id');
-		$inscripcion = new Inscripcion;
-		$inscripcion->legajo = $legajo;
-		$inscripcion->curso_id = $curso_id;
-		$inscripcion->save();
+		$cursos = $request->getParam('cursos');
+		$creados = [];
+		foreach ($cursos as $id) {
+			$creados[] = Inscripcion::create(['legajo' => $legajo, 'curso_id' => $id]);
+		}		
 		return $response->withJson([
-			'message' => 'El alta se realizó con éxito'
+			'message' => 'El alta se realizó con éxito',
+			'inscritos' => $creados
 		], 200);
 	}
 
@@ -34,7 +35,7 @@ class InscripcionController extends Controller {
 		$id = $request->getAttribute('id');
 		$ins = null;
 		try {
-			$ins = Inscripcion:where('id', $id)->with('legajos.user', 'cursos.division', 'cursos.materia')->firstOrFail();	
+			$ins = Inscripcion::where('id', $id)->with('legajos.user', 'cursos.division', 'cursos.materia')->firstOrFail();	
 		} catch(ModelNotFoundException $e) {
 			return $response->withJson(['message' => 'No se encontró registro de inscripción'], 404);
 		}
@@ -44,10 +45,10 @@ class InscripcionController extends Controller {
 
 	public function delete(Request $request, Response $response)
 	{
-		id = $request->getAttribute('id');
+		$id = $request->getAttribute('id');
 		$ins = null;
 		try {
-			$ins = Inscripcion:where('id', $id)->with('legajos.user', 'cursos.division', 'cursos.materia')->firstOrFail();	
+			$ins = Inscripcion::where('id', $id)->with('legajos.user', 'cursos.division', 'cursos.materia')->firstOrFail();	
 		} catch(ModelNotFoundException $e) {
 			return $response->withJson(['message' => 'No se encontró registro de inscripción'], 404);
 		}

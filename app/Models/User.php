@@ -25,6 +25,8 @@ class User extends Model
       return $this->hasMany('App\Models\Resultado');
     }
 
+    
+
     public function respuestas(){
 		return $this->hasMany('App\Models\Respuesta');
 	}

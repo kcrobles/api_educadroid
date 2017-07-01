@@ -44,17 +44,22 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::where('id', $id)->firstOrFail($id);
+			$user = User::where('id', $id)->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			$data = [
-			"message" => "Usuario no encontrado"
+				"message" => "Usuario no encontrado"
 			];
 			return $response->withJson($data, 404);
 		}
-		$user->delete();
+		if ($user->activo == 1) {
+			$user->activo = 0;	
+		} else {
+			$user->activo = 1;
+		}		
+		$user->save();
 		$data = [
 			"status" => "success",
-			"message" => "El usuario ha sido eliminado"
+			"message" => "Se dió baja al usuario"
 		];
 		return $response->withJson($data, 200);
 	}
@@ -91,7 +96,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::where('id', $id)->firstOrFail($id);
+			$user = User::where('id', $id)->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			$data = [
 			"message" => "Usuario no encontrado"

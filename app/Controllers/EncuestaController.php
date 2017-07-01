@@ -11,6 +11,7 @@ use App\Models\Pregunta;
 use App\Models\Opcion;
 use App\Models\Respuesta;
 use App\Models\CursoEncuesta;
+use App\Models\User;
 
 class EncuestaController extends Controller {
 
@@ -52,6 +53,25 @@ class EncuestaController extends Controller {
 	{
 		$encuestas = Encuesta::with('preguntas')->get();
 		return $response->withJson($encuestas, 201);
+	}
+
+	public function getByUser(Request $request, Response $response){
+		$user=User::findOrFail($request->getAttribute('id'));
+
+		//Profesor
+		if($user->rol_id==2){
+
+
+		//Alumno
+		} else if ($user->rol_id==3){
+			$legajo = Legajo::where('user_id',$user->id)->first();
+		}
+
+		} catch (ModelNotFoundException $e) {
+			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);
+		}
+
+		return $response->withJson($legajo, 201);
 	}
 
 	public function find(Request $request, Response $response)

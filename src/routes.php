@@ -45,6 +45,7 @@ $app->delete('/domicilios/{id:[1-9]+[0-9]*}', '\App\Controllers\DomicilioControl
 /* Encuestas */
 $app->post('/encuestas', '\App\Controllers\EncuestaController:create');
 $app->get('/encuestas', '\App\Controllers\EncuestaController:all');
+$app->get('/encuestas/user/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:getByUser');
 $app->get('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:find');
 $app->put('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:update');
 $app->delete('/encuestas/{id:[1-9]+[0-9]*}', '\App\Controllers\EncuestaController:delete');

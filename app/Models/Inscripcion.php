@@ -18,6 +18,11 @@ class Inscripcion extends Model
 
   public function cursos()
   {
-   	return $this->hasOne('App\Models\Curso');
+   	return $this->hasMany('App\Models\Curso');
   }
+
+  // public function users()
+  // {
+  //   return $this->hasManyThrough('App\Models\User', 'App\Models\Legajo');
+  // }
 }

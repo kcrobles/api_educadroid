@@ -16,7 +16,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::where('id', $id)->with('rol', 'domicilio')->firstOrFail();
+			$user = User::where('id', $id)->with('rol', 'domicilio', 'legajo')->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			$data = ["message" => "Usuario no encontrado."];
 			return $response->withJson($data, 404);
@@ -26,7 +26,7 @@ class UserController extends Controller {
 
 	public function all(Request $request, Response $response)
 	{
-		$users = User::with('rol', 'domicilio')->get();
+		$users = User::with('rol', 'domicilio', 'legajo')->get();
 
 		if(count($users) < 1)
 		{
@@ -96,7 +96,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');
 		$user = null;
 		try {
-			$user = User::where('id', $id)->firstOrFail();
+			$user = User::where('id', $id)->with('rol', 'domicilio', 'legajo')->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			$data = [
 			"message" => "Usuario no encontrado"
@@ -161,7 +161,7 @@ class UserController extends Controller {
 		$id = $request->getAttribute('id');		
 		$users = null;
 		try {
-			$users = User::where('rol_id', $id)->get();			
+			$users = User::where('rol_id', $id)->with('rol', 'domicilio', 'legajo')->get();			
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(['message' => 'No se encontraron usuarios'], 404);
 		}

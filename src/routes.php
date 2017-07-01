@@ -78,3 +78,10 @@ $app->post('/materias', '\App\Controllers\MateriaController:create');
 $app->get('/materias', '\App\Controllers\MateriaController:all');
 $app->get('/materias/{id:[1-9]+[0-9]*}', '\App\Controllers\MateriaController:find');
 $app->delete('/materias/{id:[1-9]+[0-9]*}', '\App\Controllers\MateriaController:delete');
+
+/* Cursos */
+$app->get('/cursos', '\App\Controllers\CursoController:all');
+$app->get('/cursos/{id:[1-9]+[0-9]*}', '\App\Controllers\CursoController:find');
+
+/* Inscripciones */
+$app->post('/inscripciones', '\App\Controllers\InscripcionController:create');

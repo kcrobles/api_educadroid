@@ -81,7 +81,7 @@ $app->delete('/materias/{id:[1-9]+[0-9]*}', '\App\Controllers\MateriaController:
 
 /* Cursos */
 $app->get('/cursos', '\App\Controllers\CursoController:all');
-$app->get('/cursos/{id:[1-9]+[0-9]*}', '\App\Controllers\CursoController:find');
+$app->get('/cursos/{id:[1-9]+[0-9]*}', '\App\Controllers\CursoController:getByUser');
 
 /* Inscripciones */
 $app->post('/inscripciones', '\App\Controllers\InscripcionController:create');

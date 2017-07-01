@@ -12,11 +12,19 @@ class CursoEncuestaController extends Controller {
 
 	public function create(Request $request, Response $response)
 	{
-		$cursoEncuesta = new CursoEncuesta;
-		$cursoEncuesta->encuesta_id = $request->getParam('encuesta_id');
-		$cursoEncuesta->curso_id = $request->getParam('curso_id');
-		$cursoEncuesta->save();
-		return $response->withJson($cursoEncuesta, 201);
+
+		CursoEncuesta::where('encuesta_id', $request->getParam('encuesta_id'))->delete();
+
+		sleep(2);
+
+		foreach ($request->getParam('curso_id_array') as $curso) {
+			$cursoEncuesta = new CursoEncuesta();
+			$cursoEncuesta->curso_id = $curso;
+			$cursoEncuesta->encuesta_id = $request->getParam('encuesta_id');
+			$cursoEncuesta->save();
+		}
+
+		return $response->withJson($request->getParam('curso_id_array'), 200);
 	}
 
 	public function all(Request $request, Response $response)

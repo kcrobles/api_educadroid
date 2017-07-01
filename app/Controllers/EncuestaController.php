@@ -62,21 +62,24 @@ class EncuestaController extends Controller {
 		try {
 			$user=User::findOrFail($request->getAttribute('id'));
 
+			$encuestasArray = array();
+
 			//Profesor
 			if($user->rol_id==2){
-
+				$encuestasArray = Encueta::where('user_id',$user->id)->get();
 
 			//Alumno
 			} else if ($user->rol_id==3){
 				$legajo = Legajo::where('user_id',$user->id)->first();
 				$cursos = $legajo->cursos()->get();
-				$encuestasArray = array();
+
 				foreach ($cursos as $curso) {
 					$encuestas = $curso->encuestas()->get();
 					foreach ($encuestas as $encuesta) {
 						array_push($encuestasArray,$encuesta);
 					}
 				}
+
 			}
 
 		} catch (ModelNotFoundException $e) {

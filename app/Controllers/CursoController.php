@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -7,12 +7,14 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Controllers\Controller;
 use App\Models\Curso;
+use App\Models\User;
+use App\Models\CursoEncuesta;
 
 class CursoController extends Controller {
 
 	public function create(Request $request, Response $response)
 	{
-		
+			
 	}
 
 	public function all(Request $request, Response $response)
@@ -21,20 +23,22 @@ class CursoController extends Controller {
 		return $response->withJson($cursos, 200);
 	}
 
-	public function find(Request $request, Response $response)
+	public function getByUser(Request $request, Response $response)
 	{
-		$id = $request->getAttribute('id');
-		$curso = null;
 		try {
-			$curso = Curso::where('id', $id)->with('materia', 'divison')->firstOrFail();
+			$id = $request->getAttribute('id');
+			$user = User::findOrFail($id);
+
+			$cursos = $user->cursos()->with('division','materia')->get();
+
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(['message' => 'No se encontró el registro'], 404);
 		}
-		return $response->withJson($curso, 200);
+		return $response->withJson($cursos, 200);
 	}
 
 	public function delete(Request $request, Response $response)
 	{
-		
+
 	}
 }

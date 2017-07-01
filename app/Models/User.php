@@ -29,14 +29,18 @@ class User extends Model
     {
         return $this->hasOne('App\Models\Legajo');
     }
-    
+
+    public function cursos()
+    {
+      return $this->belongsToMany('App\Models\Curso' ,'curso_profesor', 'user_id', 'curso_id');
+    }
 
     public function respuestas(){
 		return $this->hasMany('App\Models\Respuesta');
 	}
 
     public function scopeActive($query)
-    {   
+    {
         return $query->where('active', '=', '1');
     }
 

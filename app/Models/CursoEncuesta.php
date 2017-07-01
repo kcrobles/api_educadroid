@@ -11,6 +11,10 @@ class CursoEncuesta extends Model
 {
 	protected $table = 'cursos_encuestas';
 	public $timestamps = false;
+	protected $primaryKey = [
+        'curso_id',
+        'encuesta_id'
+    ];
 
 	public function curso()
 	{

@@ -30,4 +30,9 @@ class Curso extends Model
   {
     return $this->belongsToMany('App\Models\Encuestas' ,'cursos_encuestas', 'curso_id', 'encuesta_id');
   }
+
+	public function users()
+  {
+    return $this->belongsToMany('App\Models\User' ,'curso_profesor', 'curso_id', 'user_id');
+  }
 }

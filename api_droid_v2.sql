@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2017 a las 02:01:18
--- Versión del servidor: 5.7.9
--- Versión de PHP: 7.0.0
+-- Tiempo de generación: 01-07-2017 a las 08:11:04
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,15 +26,11 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cursos`
 --
 
-DROP TABLE IF EXISTS `cursos`;
-CREATE TABLE IF NOT EXISTS `cursos` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cursos` (
+  `id` int(10) NOT NULL,
   `materia_id` int(11) NOT NULL,
-  `division_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `materia_id` (`materia_id`),
-  KEY `division_id` (`division_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+  `division_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `cursos`
@@ -74,13 +70,21 @@ INSERT INTO `cursos` (`id`, `materia_id`, `division_id`) VALUES
 -- Estructura de tabla para la tabla `cursos_encuestas`
 --
 
-DROP TABLE IF EXISTS `cursos_encuestas`;
-CREATE TABLE IF NOT EXISTS `cursos_encuestas` (
+CREATE TABLE `cursos_encuestas` (
   `curso_id` int(11) NOT NULL,
-  `encuesta_id` int(11) NOT NULL,
-  KEY `materia_division_id` (`curso_id`),
-  KEY `encuesta_id` (`encuesta_id`)
+  `encuesta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `curso_profesor`
+--
+
+CREATE TABLE `curso_profesor` (
+  `id_user` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -88,12 +92,10 @@ CREATE TABLE IF NOT EXISTS `cursos_encuestas` (
 -- Estructura de tabla para la tabla `divisiones`
 --
 
-DROP TABLE IF EXISTS `divisiones`;
-CREATE TABLE IF NOT EXISTS `divisiones` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+CREATE TABLE `divisiones` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `divisiones`
@@ -115,16 +117,14 @@ INSERT INTO `divisiones` (`id`, `codigo`) VALUES
 -- Estructura de tabla para la tabla `domicilios`
 --
 
-DROP TABLE IF EXISTS `domicilios`;
-CREATE TABLE IF NOT EXISTS `domicilios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `domicilios` (
+  `id` int(11) NOT NULL,
   `direccion` text,
   `latitud` float DEFAULT NULL,
   `longitud` float DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `domicilios`
@@ -147,16 +147,13 @@ INSERT INTO `domicilios` (`id`, `direccion`, `latitud`, `longitud`, `created_at`
 -- Estructura de tabla para la tabla `encuestas`
 --
 
-DROP TABLE IF EXISTS `encuestas`;
-CREATE TABLE IF NOT EXISTS `encuestas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `encuestas` (
+  `id` int(11) NOT NULL,
   `tema` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_encuenta_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `encuestas`
@@ -190,14 +187,11 @@ INSERT INTO `encuestas` (`id`, `tema`, `user_id`, `created_at`, `updated_at`) VA
 -- Estructura de tabla para la tabla `inscripciones`
 --
 
-DROP TABLE IF EXISTS `inscripciones`;
-CREATE TABLE IF NOT EXISTS `inscripciones` (
+CREATE TABLE `inscripciones` (
   `legajo` int(11) NOT NULL,
   `curso_id` int(10) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  KEY `curso_id` (`curso_id`),
-  KEY `legajo` (`legajo`)
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -206,13 +200,10 @@ CREATE TABLE IF NOT EXISTS `inscripciones` (
 -- Estructura de tabla para la tabla `legajos`
 --
 
-DROP TABLE IF EXISTS `legajos`;
-CREATE TABLE IF NOT EXISTS `legajos` (
-  `legajo` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`legajo`),
-  KEY `fk_legajos_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+CREATE TABLE `legajos` (
+  `legajo` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `legajos`
@@ -232,12 +223,10 @@ INSERT INTO `legajos` (`legajo`, `user_id`) VALUES
 -- Estructura de tabla para la tabla `materias`
 --
 
-DROP TABLE IF EXISTS `materias`;
-CREATE TABLE IF NOT EXISTS `materias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+CREATE TABLE `materias` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `materias`
@@ -276,16 +265,13 @@ INSERT INTO `materias` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `opciones`
 --
 
-DROP TABLE IF EXISTS `opciones`;
-CREATE TABLE IF NOT EXISTS `opciones` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opciones` (
+  `id` int(11) NOT NULL,
   `texto` text,
   `pregunta_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_opciones_pregunta` (`pregunta_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `opciones`
@@ -316,18 +302,14 @@ INSERT INTO `opciones` (`id`, `texto`, `pregunta_id`, `created_at`, `updated_at`
 -- Estructura de tabla para la tabla `preguntas`
 --
 
-DROP TABLE IF EXISTS `preguntas`;
-CREATE TABLE IF NOT EXISTS `preguntas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `preguntas` (
+  `id` int(11) NOT NULL,
   `tipo_id` int(11) DEFAULT NULL,
   `texto` text,
   `encuesta_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_preguntas_tipos` (`tipo_id`),
-  KEY `fk_preguntas_encuesta` (`encuesta_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `preguntas`
@@ -350,14 +332,11 @@ INSERT INTO `preguntas` (`id`, `tipo_id`, `texto`, `encuesta_id`, `created_at`, 
 -- Estructura de tabla para la tabla `respuestas`
 --
 
-DROP TABLE IF EXISTS `respuestas`;
-CREATE TABLE IF NOT EXISTS `respuestas` (
+CREATE TABLE `respuestas` (
   `pregunta_id` int(11) NOT NULL,
   `opcion_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  KEY `fk_respuesta_pregunta` (`pregunta_id`),
-  KEY `fk_respuesta_opcion` (`opcion_id`)
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -377,13 +356,10 @@ INSERT INTO `respuestas` (`pregunta_id`, `opcion_id`, `created_at`, `updated_at`
 -- Estructura de tabla para la tabla `resultados`
 --
 
-DROP TABLE IF EXISTS `resultados`;
-CREATE TABLE IF NOT EXISTS `resultados` (
+CREATE TABLE `resultados` (
   `pregunta_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `resultado` tinyint(1) NOT NULL,
-  KEY `fk_contestada_encuesta` (`pregunta_id`),
-  KEY `fk_contestada_user` (`user_id`)
+  `resultado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -392,12 +368,10 @@ CREATE TABLE IF NOT EXISTS `resultados` (
 -- Estructura de tabla para la tabla `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -415,12 +389,10 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tipos`
 --
 
-DROP TABLE IF EXISTS `tipos`;
-CREATE TABLE IF NOT EXISTS `tipos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE `tipos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tipos`
@@ -437,9 +409,8 @@ INSERT INTO `tipos` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `apellido` varchar(255) DEFAULT NULL,
   `documento` varchar(50) DEFAULT NULL,
@@ -452,12 +423,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `domicilio_id` int(11) DEFAULT NULL,
   `activo` int(11) DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_user_rol` (`rol_id`),
-  KEY `fk_user_domicilio` (`domicilio_id`),
-  KEY `idxActiveUsers` (`activo`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -475,6 +442,180 @@ INSERT INTO `users` (`id`, `nombre`, `apellido`, `documento`, `email`, `password
 (10, 'Cuarto', 'Alumno', '15915933', 'alumno4@slim.com', '$2y$10$8320gcqEeHCcuLvDfBa.CuauA2S7E9nn0yWoG50NakJ2DrOYXmZjq', '1988-01-09', 3, NULL, 'm', 9, 1, '2017-06-29 01:56:40', '2017-06-30 23:37:10');
 
 --
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `cursos`
+--
+ALTER TABLE `cursos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `materia_id` (`materia_id`),
+  ADD KEY `division_id` (`division_id`);
+
+--
+-- Indices de la tabla `cursos_encuestas`
+--
+ALTER TABLE `cursos_encuestas`
+  ADD KEY `materia_division_id` (`curso_id`),
+  ADD KEY `encuesta_id` (`encuesta_id`);
+
+--
+-- Indices de la tabla `curso_profesor`
+--
+ALTER TABLE `curso_profesor`
+  ADD UNIQUE KEY `id_user` (`id_user`),
+  ADD KEY `id_curso` (`id_curso`);
+
+--
+-- Indices de la tabla `divisiones`
+--
+ALTER TABLE `divisiones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `domicilios`
+--
+ALTER TABLE `domicilios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `encuestas`
+--
+ALTER TABLE `encuestas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_encuenta_user` (`user_id`);
+
+--
+-- Indices de la tabla `inscripciones`
+--
+ALTER TABLE `inscripciones`
+  ADD KEY `curso_id` (`curso_id`),
+  ADD KEY `legajo` (`legajo`);
+
+--
+-- Indices de la tabla `legajos`
+--
+ALTER TABLE `legajos`
+  ADD PRIMARY KEY (`legajo`),
+  ADD KEY `fk_legajos_user` (`user_id`);
+
+--
+-- Indices de la tabla `materias`
+--
+ALTER TABLE `materias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_opciones_pregunta` (`pregunta_id`);
+
+--
+-- Indices de la tabla `preguntas`
+--
+ALTER TABLE `preguntas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_preguntas_tipos` (`tipo_id`),
+  ADD KEY `fk_preguntas_encuesta` (`encuesta_id`);
+
+--
+-- Indices de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+  ADD KEY `fk_respuesta_pregunta` (`pregunta_id`),
+  ADD KEY `fk_respuesta_opcion` (`opcion_id`);
+
+--
+-- Indices de la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  ADD KEY `fk_contestada_encuesta` (`pregunta_id`),
+  ADD KEY `fk_contestada_user` (`user_id`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipos`
+--
+ALTER TABLE `tipos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_rol` (`rol_id`),
+  ADD KEY `fk_user_domicilio` (`domicilio_id`),
+  ADD KEY `idxActiveUsers` (`activo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `cursos`
+--
+ALTER TABLE `cursos`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT de la tabla `divisiones`
+--
+ALTER TABLE `divisiones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `domicilios`
+--
+ALTER TABLE `domicilios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `encuestas`
+--
+ALTER TABLE `encuestas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT de la tabla `legajos`
+--
+ALTER TABLE `legajos`
+  MODIFY `legajo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `materias`
+--
+ALTER TABLE `materias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `preguntas`
+--
+ALTER TABLE `preguntas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `tipos`
+--
+ALTER TABLE `tipos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -491,6 +632,13 @@ ALTER TABLE `cursos`
 ALTER TABLE `cursos_encuestas`
   ADD CONSTRAINT `fk_asignacion_curso` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`),
   ADD CONSTRAINT `fk_asignacion_encuesta` FOREIGN KEY (`encuesta_id`) REFERENCES `encuestas` (`id`);
+
+--
+-- Filtros para la tabla `curso_profesor`
+--
+ALTER TABLE `curso_profesor`
+  ADD CONSTRAINT `fk_curso_profesor_curso` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id`),
+  ADD CONSTRAINT `fk_curso_profesor_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `encuestas`

@@ -14,6 +14,7 @@ use App\Models\CursoEncuesta;
 use App\Models\User;
 use App\Models\Legajo;
 use App\Models\Curso;
+use App\Models\Resultado;
 
 class EncuestaController extends Controller {
 
@@ -118,6 +119,14 @@ class EncuestaController extends Controller {
 		$encuesta = null;
 		$id = $request->getAttribute('id');
 		try {
+			CursoEncuesta::where('encuesta_id', $id)->delete();
+			$preguntas = Pregunta::where('encuesta_id', $id)->get();
+			foreach ($preguntas as $pregunta) {
+				Opcion::where('pregunta_id',$pregunta->id)->delete();
+				Respuesta::where('pregunta_id',$pregunta->id)->delete();
+				Resultado::where('pregunta_id',$pregunta->id)->delete();
+			}
+			Pregunta::where('encuesta_id', $id)->delete();
 			$encuesta = Encuesta::where('id', $id)->firstOrFail();
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de encuesta no encontrado"], 404);

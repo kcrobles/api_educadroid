@@ -64,6 +64,7 @@ $app->delete('/tipos/{id:[1-9]+[0-9]*}', '\App\Controllers\TipoController:delete
 /* Preguntas */
 $app->post('/preguntas', '\App\Controllers\PreguntaController:create');
 $app->get('/preguntas', '\App\Controllers\PreguntaController:all');
+$app->get('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:find');
 $app->put('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:update');
 $app->delete('/preguntas/{id:[1-9]+[0-9]*}', '\App\Controllers\PreguntaController:delete');
 

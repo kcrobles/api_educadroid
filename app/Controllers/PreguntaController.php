@@ -29,11 +29,18 @@ class PreguntaController extends Controller {
 		return $response->withJson($preguntas, 201);
 	}
 
+	public function all(Request $request, Response $response)
+	{
+		$id = $request->getAttribute('id');
+		$pregunta = Pregunta::find($id)->with('opciones', 'respuestas')->firstOrFail();
+		return $response->withJson($pregunta, 201);
+	}
+
 	public function update(Request $request, Response $response)
 	{
 		$pregunta = null;
 		$id = $request->getAttribute('id');
-		try {			
+		try {
 			$pregunta = Pregunta::where('id', $id)->firstOrFail($id);
 		} catch (ModelNotFoundException $e) {
 			return $response->withJson(["message" => "Registro de pregunta no encontrado"], 404);

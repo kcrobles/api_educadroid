@@ -708,6 +708,49 @@ define({ "api": [
     "groupTitle": "Images"
   },
   {
+    "type": "post",
+    "url": "/images",
+    "title": "Subir imagen al servidor",
+    "name": "uploadUserPhoto",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>ID del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "image",
+            "description": "<p>Imagen</p>"
+          }
+        ]
+      }
+    },
+    "group": "Images",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Mensaje de estatus de la petición</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.1",
+    "filename": "src/routes.php",
+    "groupTitle": "Images"
+  },
+  {
     "type": "delete",
     "url": "/inscripciones",
     "title": "Baja de inscripciones",

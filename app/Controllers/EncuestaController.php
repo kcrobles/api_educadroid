@@ -61,7 +61,7 @@ class EncuestaController extends Controller {
 	public function getByUser(Request $request, Response $response){
 
 		try {
-			$user=User::findOrFail($request->getAttribute('id'));
+			$user=User::where('id', $request->getAttribute('id'))->firstOrFailt();
 
 			$encuestasArray = array();
 

@@ -14,7 +14,7 @@ class CursoController extends Controller {
 
 	public function create(Request $request, Response $response)
 	{
-			
+
 	}
 
 	public function all(Request $request, Response $response)
@@ -27,7 +27,7 @@ class CursoController extends Controller {
 	{
 		try {
 			$id = $request->getAttribute('id');
-			$user = User::findOrFail($id);
+			$user = User::where('id', $id)->firstOrFail();
 
 			$cursos = $user->cursos()->with('division','materia')->get();
 

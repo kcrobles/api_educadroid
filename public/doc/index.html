@@ -5,11 +5,11 @@
   <title>Loading...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link href="vendor/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="vendor/prettify.css" rel="stylesheet" media="screen">
-  <link href="css/style.css" rel="stylesheet" media="screen, print">
+   <link href="css/style.css" rel="stylesheet" media="screen, print"> 
   <link href="img/favicon.ico" rel="icon" type="image/x-icon">
   <script src="vendor/polyfill.js"></script>
+  <link href="https://bootswatch.com/journal/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
 
@@ -131,7 +131,7 @@
     {{#if article.description}}
       <p>{{{nl2br article.description}}}</p>
     {{/if}}
-    <span class="type type__{{toLowerCase article.type}}">{{toLowerCase article.type}}</span>
+    <span class="type btn type__{{toLowerCase article.type}}">{{toLowerCase article.type}}</span>
     <pre class="prettyprint language-html" data-type="{{toLowerCase article.type}}"><code>{{article.url}}</code></pre>
 
     {{#if article.permission}}
@@ -179,7 +179,7 @@
   {{#if params}}
     {{#each params.fields}}
       <h2>{{__ @key}}</h2>
-      <table>
+      <table class="table table-stripped">
         <thead>
           <tr>
           <th style="width: 30%">{{#if ../_col1}}{{__ ../_col1}}{{else}}{{__ "Field"}}{{/if}}</th>
@@ -224,7 +224,7 @@
       <div class="tab-content">
       {{#each params.examples}}
         <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
-        <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{reformat content type}}</code></pre>
+        <pre class="prettyprint well language-{{type}}" data-type="{{type}}"><code>{{reformat content type}}</code></pre>
         </div>
       {{/each}}
       </div>
